@@ -29,6 +29,8 @@ import { AssistAndAbsences } from "../pages/assist-and-absences/assist-and-absen
 import { StatisticsViewer } from "../pages/statistics-viewer/statistics-viewer";
 import { AnswerTextViewer } from "../pages/answer-text-viewer/answer-text-viewer";
 import { StatisticsOptionsViewer } from "../pages/statistics-options-viewer/statistics-options-viewer";
+import { HelpAnswerSurvey } from "../pages/help-answer-survey/help-answer-survey";
+import { HelpViewAssitences } from "../pages/help-view-assitences/help-view-assitences";
 
 import { Vibration } from '@ionic-native/vibration';
 import { NativeAudio } from '@ionic-native/native-audio';
@@ -49,7 +51,10 @@ import { ModifyUserComponent } from "../components/modify-user-component/modify-
 import { UpdateUseromponent } from "../components/update-user-component/update-user-component";
 import { QuestionListForStatisticsViewer } from "../components/question-list-for-statistics-viewer/question-list-for-statistics-viewer";
 import { AnswerOptionTextViewer } from "../pages/answer-option-text-viewer/answer-option-text-viewer";
-
+import { HelpForStudent } from "../components/help-for-student/help-for-student";
+import { HelpForTeacher } from "../components/help-for-teacher/help-for-teacher";
+import { HelpForAdministrative } from "../components/help-for-administrative/help-for-administrative";
+import { HelpForAdministrator } from "../components/help-for-administrator/help-for-administrator";
 
 export enum SurveyType {
   FreeAnswer = 1,
@@ -98,6 +103,12 @@ export enum SurveyType {
     AnswerTextViewer,
     StatisticsOptionsViewer,
     AnswerOptionTextViewer,
+    HelpForStudent,
+    HelpForTeacher,
+    HelpForAdministrative,
+    HelpForAdministrator,
+    HelpAnswerSurvey,
+    HelpViewAssitences,
     ],
   imports: [
     BrowserModule,
@@ -144,6 +155,12 @@ export enum SurveyType {
     AnswerTextViewer,
     StatisticsOptionsViewer,
     AnswerOptionTextViewer,
+    HelpForStudent,
+    HelpForTeacher,
+    HelpForAdministrative,
+    HelpForAdministrator,
+    HelpAnswerSurvey,
+    HelpViewAssitences,
     ],
   providers: [
     StatusBar,

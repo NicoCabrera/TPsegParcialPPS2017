@@ -19,6 +19,10 @@ import { SubjectListComponent } from "../../components/subject-list-component/su
 import { AttendanceListManagerComponent } from "../../components/attendance-list-manager-component/attendance-list-manager-component";
 import { UserManagerComponent } from "../../components/user-manager-component/user-manager-component";
 import { QuestionListForStatisticsViewer } from "../../components/question-list-for-statistics-viewer/question-list-for-statistics-viewer";
+import { HelpForStudent } from "../../components/help-for-student/help-for-student";
+import { HelpForAdministrative } from "../../components/help-for-administrative/help-for-administrative";
+import { HelpForTeacher } from "../../components/help-for-teacher/help-for-teacher";
+import { HelpForAdministrator } from "../../components/help-for-administrator/help-for-administrator";
 
 @Component({
   selector: 'page-registered-user',
@@ -61,7 +65,9 @@ export class RegisteredUserPage {
 
           this.setRootComponent(body["code"]);
 
+          
           this.actions = body['permissions'];
+          this.actions.push("Ayuda");
           //Set user profile data
           this.setProfileData(body["profile"]);
         } else {
@@ -148,6 +154,9 @@ export class RegisteredUserPage {
       case "Gestionar usuarios":
         this.rootComponent = UserManagerComponent;
         break;
+      case "Ayuda":
+        this.setHelpComponentByUserRol();
+        break;
       default:
         this.rootComponent = QuestionListForStatisticsViewer;
         break;
@@ -157,6 +166,25 @@ export class RegisteredUserPage {
 
   closeSideMenu() {
     this.menuCtrl.close();
+  }
+
+  setHelpComponentByUserRol(){
+    switch (this.rol) {
+      case "Administrador":
+        this.rootComponent = HelpForAdministrator;
+        break;
+      case "Profesor":
+        this.rootComponent = HelpForTeacher;
+        break;
+      case "Administrativo":
+        this.rootComponent = HelpForAdministrative;
+        break;
+      case "Alumno":
+        this.rootComponent = HelpForStudent;
+        break;
+      default:
+        break;
+    }
   }
 
   setProfileData(profile) {
