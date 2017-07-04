@@ -1,7 +1,10 @@
 <ion-content class="help-content">
   <h2 text-center>Preguntas frecuentes</h2>
   <ion-list>
-    <button text-wrap text-center ion-button full round>¿Cómo puedo responder una encuesta?</button>
-    <button text-wrap text-center ion-button full round>¿Cómo puedo ver mis faltas y asistencias?</button>
-  </ion-list>
+    <button text-wrap text-center ion-button full round (click)="seeHelp(100)">¿Cómo crear una encuesta?</button>
+    <button text-wrap text-center ion-button full round (click)="seeHelp(101)">¿Cómo eliminar una encuesta?</button>
+    <button text-wrap text-center ion-button full round (click)="seeHelp(102)">¿Cómo modificar una encuesta?</button>
+    <button text-wrap text-center ion-button full round (click)="seeHelp(103)">¿Cómo tomar asistencia?</button>
+    <button text-wrap text-center ion-button full round (click)="seeHelp(104)">¿Cómo puedo ver los resultados de las encuestas?</button>
+  </ion-list> 
 </ion-content>

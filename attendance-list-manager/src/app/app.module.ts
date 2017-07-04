@@ -31,6 +31,7 @@ import { AnswerTextViewer } from "../pages/answer-text-viewer/answer-text-viewer
 import { StatisticsOptionsViewer } from "../pages/statistics-options-viewer/statistics-options-viewer";
 import { HelpAnswerSurvey } from "../pages/help-answer-survey/help-answer-survey";
 import { HelpViewAssitences } from "../pages/help-view-assitences/help-view-assitences";
+import { HelpTakeAssistenceAdministrative } from "../pages/help-take-assistence-administrative/help-take-assistence-administrative";
 
 import { Vibration } from '@ionic-native/vibration';
 import { NativeAudio } from '@ionic-native/native-audio';
@@ -55,6 +56,21 @@ import { HelpForStudent } from "../components/help-for-student/help-for-student"
 import { HelpForTeacher } from "../components/help-for-teacher/help-for-teacher";
 import { HelpForAdministrative } from "../components/help-for-administrative/help-for-administrative";
 import { HelpForAdministrator } from "../components/help-for-administrator/help-for-administrator";
+import { HelpCreateUsersAdministrative } from "../pages/help-crud-users-administrative/help-crud-users-administrative";
+import { HelpDeleteUserAdministrative } from "../pages/help-delete-user-administrative/help-delete-user-administrative";
+import { HelpUpdateUserAdministrative } from "../pages/help-update-user-administrative/help-update-user-administrative";
+import { HelpCreateSurveyAdministrative } from "../pages/help-create-survey-administrative/help-create-survey-administrative";
+import { HelpDeleteSurveyAdministrative } from "../pages/help-delete-survey-administrative/help-delete-survey-administrative";
+import { HelpUpdateSurveyAdministrative } from "../pages/help-update-survey-administrative/help-update-survey-administrative";
+import { HelpCreateSurveyTeacher } from "../pages/help-create-survey-teacher/help-create-survey-teacher";
+import { HelpDeleteSurveyTeacher } from "../pages/help-delete-survey-teacher/help-delete-survey-teacher";
+import { HelpUpdateSurveyTeacher } from "../pages/help-update-survey-teacher/help-update-survey-teacher";
+import { HelpViewStatisticsTeacher } from "../pages/help-view-statistics-teacher/help-view-statistics-teacher";
+import { HelpTakeAssistanceTeacher } from "../pages/help-take-assistance-teacher/help-take-assistance-teacher";
+import { HelpCreateUserAdmin } from "../pages/help-create-user-admin/help-create-user-admin";
+import { HelpDeleteUserAdmin } from "../pages/help-delete-user-admin/help-delete-user-admin";
+import { HelpViewStatisticsAdmin } from "../pages/help-view-statistics-admin/help-view-statistics-admin";
+import { HelpUpdateUserAdmin } from "../pages/help-update-user-admin/help-update-user-admin";
 
 export enum SurveyType {
   FreeAnswer = 1,
@@ -109,6 +125,22 @@ export enum SurveyType {
     HelpForAdministrator,
     HelpAnswerSurvey,
     HelpViewAssitences,
+    HelpTakeAssistenceAdministrative,
+    HelpCreateUsersAdministrative,
+    HelpDeleteUserAdministrative,
+    HelpUpdateUserAdministrative,
+    HelpCreateSurveyAdministrative,
+    HelpDeleteSurveyAdministrative,
+    HelpUpdateSurveyAdministrative,
+    HelpCreateSurveyTeacher,
+    HelpDeleteSurveyTeacher,
+    HelpUpdateSurveyTeacher,
+    HelpTakeAssistanceTeacher,
+    HelpViewStatisticsTeacher,
+    HelpCreateUserAdmin,
+    HelpDeleteUserAdmin,
+    HelpUpdateUserAdmin,
+    HelpViewStatisticsAdmin,
     ],
   imports: [
     BrowserModule,
@@ -161,6 +193,22 @@ export enum SurveyType {
     HelpForAdministrator,
     HelpAnswerSurvey,
     HelpViewAssitences,
+    HelpTakeAssistenceAdministrative,
+    HelpCreateUsersAdministrative,
+    HelpDeleteUserAdministrative,
+    HelpUpdateUserAdministrative,
+    HelpCreateSurveyAdministrative,
+    HelpDeleteSurveyAdministrative,
+    HelpUpdateSurveyAdministrative,
+    HelpCreateSurveyTeacher,
+    HelpDeleteSurveyTeacher,
+    HelpUpdateSurveyTeacher,
+    HelpTakeAssistanceTeacher,
+    HelpViewStatisticsTeacher,
+    HelpCreateUserAdmin,
+    HelpDeleteUserAdmin,
+    HelpUpdateUserAdmin,
+    HelpViewStatisticsAdmin,
     ],
   providers: [
     StatusBar,
