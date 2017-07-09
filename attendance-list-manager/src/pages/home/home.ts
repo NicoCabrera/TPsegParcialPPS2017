@@ -52,7 +52,7 @@ export class HomePage {
         })
         .catch(() => {
           this.hideSpinner = true
-          this.showErrorMessage("Error en la conexión con la base de datos"); //If the connection to the database fails.
+          this.showErrorMessage("El usuario no ha sido encontrado"); //If the connection to the database fails.
         });
   }
 

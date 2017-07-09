@@ -91,7 +91,6 @@ class GenericDAO
 			
 			//survey creation date taked by the server clock
 			$survey["creationDate"] = date("Y-m-d");
-
 			$db = GenericDAO::getPDO();
 			$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -137,8 +136,10 @@ class GenericDAO
 			}
 
 			$db->commit();
+			return true;
 		}catch(Exception $ex){
 			$db->rollBack();
+			return false;
 		}
 		
 	}
@@ -331,8 +332,10 @@ public static function modifySurvey($survey)
 		}
 
  		$db->commit();
+		return true;
 	}catch(Exception $ex){
 		$db->rollBack();
+		return false;
 	}
 } 
 

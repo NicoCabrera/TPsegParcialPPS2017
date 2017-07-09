@@ -64,7 +64,6 @@ export class RegisteredUserPage {
           let body = JSON.parse(response["_body"]);
 
           this.setRootComponent(body["code"]);
-
           
           this.actions = body['permissions'];
           this.actions.push("Ayuda");

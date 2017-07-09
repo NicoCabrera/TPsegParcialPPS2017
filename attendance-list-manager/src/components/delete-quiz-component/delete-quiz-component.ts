@@ -55,7 +55,7 @@ export class DeleteQuizComponent {
           text: 'Aceptar',
           handler: () => {
             this.vibration.vibrate(500);
-            this.eliminar(surveyid)
+            this.getJwtForEliminate(surveyid)
           }
         }
       ]
@@ -71,9 +71,9 @@ export class DeleteQuizComponent {
   }
 
 
-  eliminar(surveyid) {
+  eliminar(jwt, surveyid) {
     this.loadingPage = true;
-    this.appService.eliminatesurvey(surveyid).then((response: Response) => {
+    this.appService.eliminatesurvey(jwt, surveyid).then((response: Response) => {
       this.showMessage("Borrando Encuesta");
       this.storage.get("jwt")
         .then((jwt) => {
@@ -89,7 +89,14 @@ export class DeleteQuizComponent {
           })
             .catch((error) => console.log("error")); //Si por alguna razón el servidor no responde.
         });
-    });
+    }).catch(()=>this.logOutOnClick());
+  }
+
+  getJwtForEliminate(surveyid) {
+
+    this.storage.get("jwt")
+      .then(jwt => this.eliminar(jwt,surveyid))
+      .catch(() => this.logOutOnClick());
   }
 
   showMessage(message: string): void {

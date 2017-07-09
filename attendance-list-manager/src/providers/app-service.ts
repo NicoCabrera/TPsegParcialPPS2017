@@ -29,10 +29,11 @@ export class AppService {
   }
 
   getPermissionsByUserRol(jwt) {
+    let data = { jwt };
+    let jsonData = JSON.stringify(data);
     let headers = new Headers({ 'Content-Type': 'application/json' });
-    headers.append("jwt", jwt);
     let options = new RequestOptions({ headers: headers });
-    return this.http.post("http://localhost:80/jwt/permissions", options).toPromise();
+    return this.http.post("http://localhost:80/jwt/permissions", jsonData, options).toPromise();
   }
 
   logOut() {
@@ -72,6 +73,7 @@ export class AppService {
   newUser(user: NewUserData, jwt) {
     let data = { user, jwt };
     let jsonData = JSON.stringify(data);
+    console.log(jsonData);
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this.http.post("http://localhost:80/jwt/newuser", jsonData, options).toPromise();
@@ -84,8 +86,8 @@ export class AppService {
     return this.http.post("http://localhost:80/jwt/getuserid", jsonData, options).toPromise();
 
   }
-  eliminatesurvey(surveyid) {
-    let data = { surveyid };
+  eliminatesurvey(jwt, surveyid) {
+    let data = { jwt, surveyid };
     let jsonData = JSON.stringify(data);
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });

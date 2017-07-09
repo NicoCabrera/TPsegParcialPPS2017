@@ -1,11 +1,12 @@
 <?php
-
 use \Firebase\JWT\JWT;
-class TokenManager{
 
-    function getToken($userdata){
+class TokenManager
+{
+    function getToken($userdata)
+    {
         $key = "soydyos";
-        
+
         $token = array(
             "iss" => "attendance-list",
             "aud" => "http://example.com",
@@ -14,7 +15,7 @@ class TokenManager{
             "uid" => $userdata['userid'],
             "rol" => $userdata['code']
         );
-        
+
         $jwt = JWT::encode($token, $key);
         JWT::$leeway = 60; // $leeway in seconds
         $decoded = JWT::decode($jwt, $key, array('HS256'));
@@ -26,30 +27,32 @@ class TokenManager{
         return json_encode($rv);
     }
 
-    function isValidToken($jwt){
+    function isValidToken($jwt)
+    {
         $rv = array(
-            "isValidToken"=>false,
-            "code"=>array()
+            "isValidToken" => false,
+            "code" => ""
         );
         $key = "soydyos";
-        try{
-            $decode = JWT::decode($jwt,$key,array('HS256'));
+        try {
+            $decode = JWT::decode($jwt, $key, array('HS256'));
             $rv['isValidToken'] = true;
             $rv['code'] = $decode->rol;
-            
-        }catch(Exception $ex){
+
+        } catch (Exception $ex) {
 
         }
 
         return $rv;
     }
 
-    function getIdByJWT($jwt){
+    function getIdByJWT($jwt)
+    {
         $key = "soydyos";
-        try{
-            $decode = JWT::decode($jwt,$key,array('HS256'));
+        try {
+            $decode = JWT::decode($jwt, $key, array('HS256'));
             $rv = $decode->uid;
-        }catch(Exception $ex){
+        } catch (Exception $ex) {
 
         }
         return $rv;
