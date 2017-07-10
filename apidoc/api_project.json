@@ -5,14 +5,19 @@
   "title": "Attendance List Manager",
   "order": [
     "JWT",
-    "ACCIONES"
+    "ACCIONES",
+    "ENCUESTAS",
+    "ESTADISTICAS",
+    "USUARIOS",
+    "ASISTENCIA",
+    "MISCELANEAS"
   ],
   "sampleUrl": false,
   "defaultVersion": "0.0.0",
   "apidoc": "0.3.0",
   "generator": {
     "name": "apidoc",
-    "time": "2017-07-09T22:12:06.858Z",
+    "time": "2017-07-10T01:01:43.946Z",
     "url": "http://apidocjs.com",
     "version": "0.17.6"
   }

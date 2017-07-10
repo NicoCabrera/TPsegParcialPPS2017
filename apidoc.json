@@ -5,6 +5,11 @@
     "title": "Attendance List Manager",
     "order": [
         "JWT",
-        "ACCIONES"
+        "ACCIONES",
+        "ENCUESTAS",
+        "ESTADISTICAS",
+        "USUARIOS",
+        "ASISTENCIA",
+        "MISCELANEAS"
     ]
 }

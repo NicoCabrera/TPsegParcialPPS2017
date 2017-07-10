@@ -184,10 +184,18 @@ $app->post('/getsurveyslisttoeliminate', function (Request $request, Response $r
 $app->post('/eliminatesurvey', function (Request $request, Response $response) {
 
     $params = $request->getParams();
-
+    $jwt = $params["jwt"];
     $surveyid = $params["surveyid"];
-    
-    $rv = GenericDAO::eliminateSurvey($surveyid);
+
+    $tm = new TokenManager();
+    $rv = $tm->isValidToken($jwt);
+    if ($rv['isValidToken'] == true) {
+        $rv = GenericDAO::eliminateSurvey($surveyid);
+    }
+    else {
+        $response = $response->withStatus(404);
+    }
+    $data = json_encode($rv);
     $response->getBody()->write(json_encode($rv));
     return $response;
 });
@@ -202,13 +210,9 @@ $app->post('/getsurveybyid', function (Request $request, Response $response) {
 $app->post('/getuserid', function (Request $request, Response $response) {
     $params = $request->getParams();
     $jwt = $params["jwt"];
-
     $tm = new TokenManager();
-
-
     $userid = $tm->getIdByJWT($jwt);
-
-
+    $data = json_encode($userid);
     $response->getBody()->write(json_encode($userid));
     return $response;
 });
@@ -218,13 +222,14 @@ $app->post('/saveanswer', function (Request $request, Response $response) {
     $answer = $params["answer"];
     $jwt = $params["jwt"];
     $tm = new TokenManager();
-    $tm->isValidToken($jwt);
-    $userid = $tm->getIdByJWT($jwt);
-    if (GenericDAO::saveAnswer($answer, $userid)) {
-        $response = $response->withStatus(200);
-    }
-    else {
-        $response = $response->withStatus(204);
+    $rv = $tm->isValidToken($jwt);
+    if ($rv['isValidToken'] == true) {
+        $userid = $tm->getIdByJWT($jwt);
+        if (GenericDAO::saveAnswer($answer, $userid) == false) {
+            $response = $response->withStatus(404);
+        }
+    }else{
+        $response = $response->withStatus(404);
     }
     return $response;
 });
@@ -405,11 +410,7 @@ $app->post('/getAssist', function (Request $request, Response $response) {
 $app->post('/deleteUser', function (Request $request, Response $response) {
 
     $params = $request->getParams();
-
     $userid = $params["userid"];
-
-
-
     $rv = GenericDAO::deleteUser($userid);
     $response->getBody()->write(json_encode($rv));
     return $response;

@@ -96,6 +96,192 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "/studentslistbydivisionandsubject",
+    "title": "Alumnos por división y materia",
+    "name": "subjectsListByDivisionId",
+    "group": "ASISTENCIA",
+    "version": "0.1.0",
+    "description": "<p>Obtiene los alumnos por división y materia</p>",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:80/jwt/studentslistbydivisionandsubject"
+      }
+    ],
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "jwt",
+            "description": "<p>Credencial del usuario</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "divisionid",
+            "description": "<p>ID de una división</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "subjectid",
+            "description": "<p>ID de una materia</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Ejemplo de datos validos",
+          "content": "{\n    \"divisionid\":\"1\",\n    \"subjectid\":\"4\",\n    \"jwt\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdHRlbmRhbmNlLWxpc3QiLCJhdWQiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImlhdCI6MTM1Njk5OTUyNCwibmJmIjoxMzU3MDAwMDAwLCJ1aWQiOjMsInJvbCI6IkFkbWluaXN0cmF0aXZlIn0.KYofapbmBFAFzpI07ro6vRCbVRH1ikJt_uYlo09-XTc\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "server/jwt/documentation.js",
+    "groupTitle": "ASISTENCIA"
+  },
+  {
+    "type": "post",
+    "url": "/saveattendancelist",
+    "title": "Tomar lista",
+    "name": "subjectsListByDivisionId",
+    "group": "ASISTENCIA",
+    "version": "0.1.0",
+    "description": "<p>Guarda la lista de asistencia</p>",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "jwt",
+            "description": "<p>Credencial del usuario</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "attendancelist",
+            "description": "<p>Lista de asistencia</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Ejemplo de datos validos",
+          "content": "{\"jwt\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdHRlbmRhbmNlLWxpc3QiLCJhdWQiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImlhdCI6MTM1Njk5OTUyNCwibmJmIjoxMzU3MDAwMDAwLCJ1aWQiOjMsInJvbCI6IkFkbWluaXN0cmF0aXZlIn0.KYofapbmBFAFzpI07ro6vRCbVRH1ikJt_uYlo09-XTc\",\n\"attendancelist\":\n       {\"attendancelistid\":-1,\n        \"classid\":1,\n        \"creationdate\":\"\",\n        \"ownerid\":-1,\n        \"attendancelistitems\":\n             [\n              {\n               \"attendancelistitemid\":-1,\n               \"studentid\":12,\"present\":true\n              },\n              {\n               \"attendancelistitemid\":-1,\n               \"studentid\":4,\n              \"present\":false}\n             ]\n         }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "server/jwt/documentation.js",
+    "groupTitle": "ASISTENCIA"
+  },
+  {
+    "type": "post",
+    "url": "/eliminatesurvey",
+    "title": "Eliminar una encuesta",
+    "name": "eliminateSurvey",
+    "group": "ENCUESTAS",
+    "version": "0.1.0",
+    "description": "<p>Su función es eliminar una encuesta</p>",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "jwt",
+            "description": "<p>Credencial del usuario</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "surveyid",
+            "description": "<p>ID de la encuesta a eliminar</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Ejemplo de Success-Response 200",
+          "content": "{ \n   \"isValidToken\":true,\n   \"code\":\"Teacher\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Ejemplo de Error-Response 404",
+          "content": "{ \n   \"isValidToken\":false,\n   \"code\":\"\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Ejemplo de Error-Response 404",
+          "content": "{ \n   \"isValidToken\":true,\n   \"code\":\"Administrative\",\n   \"error\": \"No se pudo eliminar la encuesta\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "server/jwt/documentation.js",
+    "groupTitle": "ENCUESTAS"
+  },
+  {
+    "type": "post",
+    "url": "/getsurveybyid",
+    "title": "Traer una encuesta",
+    "name": "getSurveyById",
+    "group": "ENCUESTAS",
+    "version": "0.1.0",
+    "description": "<p>Trae una encuesta por su ID.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "surveyid",
+            "description": "<p>ID de la encuesta</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:80/jwt/getsurveybyid"
+      }
+    ],
+    "filename": "server/jwt/documentation.js",
+    "groupTitle": "ENCUESTAS"
+  },
+  {
+    "type": "post",
     "url": "/getsurveyslist",
     "title": "Traer la lista de encuestas",
     "name": "getSurveysList",
@@ -280,8 +466,103 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "/saveanswer",
+    "title": "Registrar una respuesta",
+    "name": "saveAnswer",
+    "group": "ENCUESTAS",
+    "version": "0.1.0",
+    "description": "<p>Su función es guardar una respuesta.</p>",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "jwt",
+            "description": "<p>Credencial del usuario</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "answer",
+            "description": "<p>La respuesta tiene la siguiente estructura: <br>- answerId: ID de la respuesta. <br>- text: En caso de responder con un textarea, el valor se almacena en éste campo. <br>- userId: ID del usuario que responde. <br>- optionIds: Array de IDs de las respuestas predefinidas, cuando se responde mediante checkboxes o radiobuttons. <br>- questionId: ID de la pregunta. <br>- surveyId: ID de la encuesta. <br>- chooseNothing: Booleano que debe ser seteado en 'true' en el caso que el usuario no haya seleccionado ninguna respuesta.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Ejemplo de datos validos",
+          "content": "{\"answer\":\n\t{\"answerId\":-1,\n\t \"text\":\"\",\n\t \"userId\":-1,\n\t \"optionIds\":\n\t [65,66,67],\n\t \"questionId\":67,\n\t \"surveyId\":65,\n\t \"chooseNothing\":false\n\t },\n \"jwt\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdHRlbmRhbmNlLWxpc3QiLCJhdWQiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImlhdCI6MTM1Njk5OTUyNCwibmJmIjoxMzU3MDAwMDAwLCJ1aWQiOjQsInJvbCI6IlN0dWRlbnQifQ.8-AOeHe8lKHUkeyzT4_pEgvq7JM-V76I3r9UFkYn8dg\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "server/jwt/documentation.js",
+    "groupTitle": "ENCUESTAS"
+  },
+  {
+    "type": "post",
+    "url": "/getAssist",
+    "title": "Faltas y asistencias",
+    "name": "getAssist",
+    "group": "ESTADISTICAS",
+    "version": "0.1.0",
+    "description": "<p>Obtiene las faltas y asistencias de un alumno, segun una asignatura seleccionada</p>",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "jwt",
+            "description": "<p>Credencial del usuario</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "classid",
+            "description": "<p>ID de una clase</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Ejemplo de datos validos",
+          "content": "{\n    \"jwt\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdHRlbmRhbmNlLWxpc3QiLCJhdWQiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImlhdCI6MTM1Njk5OTUyNCwibmJmIjoxMzU3MDAwMDAwLCJ1aWQiOiI0Iiwicm9sIjoiU3R1ZGVudCJ9.ittUMiwCtmpYRIUK5l1HOZ3FlKlHjrMBECAGb0u0PvI\",\n    \"classid\": \"1\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Ejemplo de Success-Response 200",
+          "content": "{ \n   \"present\": \"5\",\n   \"absent\":\"1\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "server/jwt/documentation.js",
+    "groupTitle": "ESTADISTICAS"
+  },
+  {
+    "type": "post",
     "url": "/statisticsforsurveytypefreeanswer",
-    "title": "Trae datos estadisticos 1",
+    "title": "Encuestas Tipo 1",
     "name": "statisticsForSurveyTypeFreeAnswer",
     "group": "ESTADISTICAS",
     "version": "0.1.0",
@@ -405,6 +686,201 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "/divisionslistbysubjectid",
+    "title": "Obtener las divisiones donde se dicta una materia",
+    "name": "divisionsListBySubjectId",
+    "group": "MISCELANEAS",
+    "version": "0.1.0",
+    "description": "<p>Traer una lista de divisiones en donde se dicta una materia.</p>",
+    "success": {
+      "examples": [
+        {
+          "title": "Ejemplo de Success-Response 200",
+          "content": "{\n    \"divisions\": [\n        {\n            \"divisionid\": 1,\n            \"name\": \"1 A\"\n        },\n        {\n            \"divisionid\": 2,\n            \"name\": \"1 B\"\n        },\n        {\n            \"divisionid\": 3,\n            \"name\": \"1 C\"\n        }\n    ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "jwt",
+            "description": "<p>Credencial del usuario</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "subjectid",
+            "description": "<p>ID de una materia</p>"
+          }
+        ]
+      }
+    },
+    "filename": "server/jwt/documentation.js",
+    "groupTitle": "MISCELANEAS"
+  },
+  {
+    "type": "post",
+    "url": "/divisionslist",
+    "title": "Obtener las divisiones",
+    "name": "getDivisionsList",
+    "group": "MISCELANEAS",
+    "version": "0.1.0",
+    "description": "<p>Traer una lista de divisiones existentes.</p>",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:80/jwt/divisionslist"
+      }
+    ],
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "jwt",
+            "description": "<p>Credencial del usuario</p>"
+          }
+        ]
+      }
+    },
+    "filename": "server/jwt/documentation.js",
+    "groupTitle": "MISCELANEAS"
+  },
+  {
+    "type": "post",
+    "url": "/getsubjectslist",
+    "title": "Obtener las materias",
+    "name": "getSubjectsList",
+    "group": "MISCELANEAS",
+    "version": "0.1.0",
+    "description": "<p>Traer una lista de materias existentes.</p>",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:80/jwt/getsubjectslist"
+      }
+    ],
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "jwt",
+            "description": "<p>Credencial del usuario</p>"
+          }
+        ]
+      }
+    },
+    "filename": "server/jwt/documentation.js",
+    "groupTitle": "MISCELANEAS"
+  },
+  {
+    "type": "post",
+    "url": "/subjectslistbydivisionid",
+    "title": "Obtener las materias de una división",
+    "name": "subjectsListByDivisionId",
+    "group": "MISCELANEAS",
+    "version": "0.1.0",
+    "description": "<p>Traer una lista de asignaturas pertenecientes a una división.</p>",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:80/jwt/subjectslistbydivisionid"
+      }
+    ],
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "jwt",
+            "description": "<p>Credencial del usuario</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "divisionid",
+            "description": "<p>ID de una división</p>"
+          }
+        ]
+      }
+    },
+    "filename": "server/jwt/documentation.js",
+    "groupTitle": "MISCELANEAS"
+  },
+  {
+    "type": "post",
+    "url": "/subjectslistbydivisionid",
+    "title": "Obtener las materias de una división",
+    "name": "subjectsListByDivisionId",
+    "group": "MISCELANEAS",
+    "version": "0.1.0",
+    "description": "<p>Traer una lista de asignaturas pertenecientes a una división.</p>",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:80/jwt/subjectslistbydivisionid"
+      }
+    ],
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "jwt",
+            "description": "<p>Credencial del usuario</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "divisionid",
+            "description": "<p>ID de una división</p>"
+          }
+        ]
+      }
+    },
+    "filename": "server/jwt/documentation.js",
+    "groupTitle": "MISCELANEAS"
+  },
+  {
+    "type": "post",
     "url": "/newuser",
     "title": "Crear usuarios",
     "name": "newUser",
@@ -504,7 +980,7 @@ define({ "api": [
         },
         {
           "title": "Ejemplo de Error-Response 404",
-          "content": "{ \n   \"isValidToken\":true,\n   \"code\":\"Administrative\",\n   \"error\": \"No se pudo guardar la encuesta\"\n}",
+          "content": "{ \n   \"isValidToken\":true,\n   \"code\":\"Administrative\",\n   \"error\": \"No se pudo guardar el usuario\"\n}",
           "type": "json"
         }
       ]
