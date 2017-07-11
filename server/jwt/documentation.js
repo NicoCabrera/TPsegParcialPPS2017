@@ -40,7 +40,8 @@
 * @apiGroup ENCUESTAS
 * @apiVersion 0.1.0
 * @apiDescription Su función es crear una nueva encuesta.
-* @apiPermission jwt
+* @apiPermission jwt +
+* @apiPermission Gestionar Encuestas
 * @apiParam {String} jwt Credencial del usuario
 * @apiParam {Object} survey La encuesta tiene la siguiente estructura: 
 * <br>- title: título de la encuesta. 
@@ -217,7 +218,7 @@
 * @apiName statisticsForSurveyTypeFreeAnswer
 * @apiGroup ESTADISTICAS
 * @apiVersion 0.1.0
-* @apiDescription Obtiene las respuestas de los usuarios según el ID de la encuesta.<br>Se utiliza sobre encuestas con preguntas que fueron respondidas por medio de un textfield.
+* @apiDescription Obtiene las respuestas de los usuarios según el ID de la encuesta.<br>Se utiliza sobre encuestas con preguntas que fueron respondidas por medio de un textarea.
 * @apiPermission jwt
 * @apiParam {String} jwt Credencial del usuario
 * @apiParam {Number} surveyid ID de una encuesta existente
@@ -227,6 +228,78 @@
 *     "surveyid": "62"
 * }
 * @apiSampleRequest http://localhost:80/jwt/statisticsforsurveytypefreeanswer
+*/
+
+/**
+* @api {post} /statisticsforsurveytyperadiobuttons1correct2graphics Encuestas Tipo 2
+* @apiName statisticsForSurveyTypeRadiobuttons1Correct2Graphics
+* @apiGroup ESTADISTICAS
+* @apiVersion 0.1.0
+* @apiDescription Obtiene las respuestas de los usuarios según el ID de la encuesta.<br>Se utiliza sobre encuestas con preguntas que fueron respondidas por radiobuttons o checkboxes.
+* @apiPermission jwt
+* @apiParam {String} jwt Credencial del usuario
+* @apiParam {Number} questionid ID de una pregunta relacionada a una encuesta existente
+* @apiParam {Number} surveyid ID de una encuesta existente
+* @apiParamExample {json} Ejemplo de datos validos
+* {
+*     "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdHRlbmRhbmNlLWxpc3QiLCJhdWQiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImlhdCI6MTM1Njk5OTUyNCwibmJmIjoxMzU3MDAwMDAwLCJ1aWQiOiI0Iiwicm9sIjoiU3R1ZGVudCJ9.ittUMiwCtmpYRIUK5l1HOZ3FlKlHjrMBECAGb0u0PvI",
+*     "questionid": "65",
+*     "surveyid": "63"
+* }
+* @apiSampleRequest http://localhost:80/jwt/statisticsforsurveytyperadiobuttons1correct2graphics
+*/
+
+/**
+* @api {post} /deleteUser Eliminar una usuarios
+* @apiName deleteUser
+* @apiGroup USUARIOS
+* @apiVersion 0.1.0
+* @apiDescription Su función es eliminar un usuario
+* @apiParam {String} jwt Credencial del usuario
+* @apiParam {Number} userid ID del usuario a eliminar
+* @apiSuccessExample {json} Ejemplo de Success-Response 200
+* { 
+*    "isValidToken":true,
+*    "code":"Teacher"
+* }
+* @apiErrorExample {json} Ejemplo de Error-Response 404
+* { 
+*    "isValidToken":false,
+*    "code":""
+* }
+* @apiErrorExample {json} Ejemplo de Error-Response 404
+* { 
+*    "isValidToken":true,
+*    "code":"Administrative",
+*    "error": "No se pudo eliminar al usuario"
+* }
+*/
+
+/**
+* @api {post} /modifyUser Modificar un usuario
+* @apiName modifyUser
+* @apiGroup USUARIOS
+* @apiVersion 0.1.0
+* @apiDescription Su función es modificar un usuario
+* @apiPermission jwt
+* @apiParam {String} jwt Credencial del usuario
+* @apiParam {Object} user La estructura de éste objeto se encuentra detallada en '/newuser'
+* @apiSuccessExample {json} Ejemplo de Success-Response 200
+* { 
+*    "isValidToken":true,
+*    "code":"Teacher"
+* }
+* @apiErrorExample {json} Ejemplo de Error-Response 404
+* { 
+*    "isValidToken":false,
+*    "code":""
+* }
+* @apiErrorExample {json} Ejemplo de Error-Response 404
+* { 
+*    "isValidToken":true,
+*    "code":"Administrative",
+*    "error": "No se pudo modificar al usuario"
+* }
 */
 
 /**
@@ -256,7 +329,8 @@
 * @apiGroup USUARIOS
 * @apiVersion 0.1.0
 * @apiDescription Su función es crear un nuevo usuario.
-* @apiPermission jwt
+* @apiPermission jwt +
+* @apiPermission Gestionar Usuarios
 * @apiParam {String} jwt Credencial del usuario
 * @apiParam {Object} user El usuario tiene la siguiente estructura: 
 * <br>- username: nick del usuario. 

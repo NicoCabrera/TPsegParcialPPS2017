@@ -365,7 +365,10 @@ define({ "api": [
     "description": "<p>Su función es crear una nueva encuesta.</p>",
     "permission": [
       {
-        "name": "jwt"
+        "name": "jwt +"
+      },
+      {
+        "name": "Gestionar Encuestas"
       }
     ],
     "parameter": {
@@ -566,7 +569,7 @@ define({ "api": [
     "name": "statisticsForSurveyTypeFreeAnswer",
     "group": "ESTADISTICAS",
     "version": "0.1.0",
-    "description": "<p>Obtiene las respuestas de los usuarios según el ID de la encuesta.<br>Se utiliza sobre encuestas con preguntas que fueron respondidas por medio de un textfield.</p>",
+    "description": "<p>Obtiene las respuestas de los usuarios según el ID de la encuesta.<br>Se utiliza sobre encuestas con preguntas que fueron respondidas por medio de un textarea.</p>",
     "permission": [
       {
         "name": "jwt"
@@ -602,6 +605,61 @@ define({ "api": [
     "sampleRequest": [
       {
         "url": "http://localhost:80/jwt/statisticsforsurveytypefreeanswer"
+      }
+    ],
+    "filename": "server/jwt/documentation.js",
+    "groupTitle": "ESTADISTICAS"
+  },
+  {
+    "type": "post",
+    "url": "/statisticsforsurveytyperadiobuttons1correct2graphics",
+    "title": "Encuestas Tipo 2",
+    "name": "statisticsForSurveyTypeRadiobuttons1Correct2Graphics",
+    "group": "ESTADISTICAS",
+    "version": "0.1.0",
+    "description": "<p>Obtiene las respuestas de los usuarios según el ID de la encuesta.<br>Se utiliza sobre encuestas con preguntas que fueron respondidas por radiobuttons o checkboxes.</p>",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "jwt",
+            "description": "<p>Credencial del usuario</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "questionid",
+            "description": "<p>ID de una pregunta relacionada a una encuesta existente</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "surveyid",
+            "description": "<p>ID de una encuesta existente</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Ejemplo de datos validos",
+          "content": "{\n    \"jwt\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdHRlbmRhbmNlLWxpc3QiLCJhdWQiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImlhdCI6MTM1Njk5OTUyNCwibmJmIjoxMzU3MDAwMDAwLCJ1aWQiOiI0Iiwicm9sIjoiU3R1ZGVudCJ9.ittUMiwCtmpYRIUK5l1HOZ3FlKlHjrMBECAGb0u0PvI\",\n    \"questionid\": \"65\",\n    \"surveyid\": \"63\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:80/jwt/statisticsforsurveytyperadiobuttons1correct2graphics"
       }
     ],
     "filename": "server/jwt/documentation.js",
@@ -881,6 +939,119 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "/deleteUser",
+    "title": "Eliminar una usuarios",
+    "name": "deleteUser",
+    "group": "USUARIOS",
+    "version": "0.1.0",
+    "description": "<p>Su función es eliminar un usuario</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "jwt",
+            "description": "<p>Credencial del usuario</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "userid",
+            "description": "<p>ID del usuario a eliminar</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Ejemplo de Success-Response 200",
+          "content": "{ \n   \"isValidToken\":true,\n   \"code\":\"Teacher\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Ejemplo de Error-Response 404",
+          "content": "{ \n   \"isValidToken\":false,\n   \"code\":\"\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Ejemplo de Error-Response 404",
+          "content": "{ \n   \"isValidToken\":true,\n   \"code\":\"Administrative\",\n   \"error\": \"No se pudo eliminar al usuario\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "server/jwt/documentation.js",
+    "groupTitle": "USUARIOS"
+  },
+  {
+    "type": "post",
+    "url": "/modifyUser",
+    "title": "Modificar un usuario",
+    "name": "modifyUser",
+    "group": "USUARIOS",
+    "version": "0.1.0",
+    "description": "<p>Su función es modificar un usuario</p>",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "jwt",
+            "description": "<p>Credencial del usuario</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "user",
+            "description": "<p>La estructura de éste objeto se encuentra detallada en '/newuser'</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Ejemplo de Success-Response 200",
+          "content": "{ \n   \"isValidToken\":true,\n   \"code\":\"Teacher\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Ejemplo de Error-Response 404",
+          "content": "{ \n   \"isValidToken\":false,\n   \"code\":\"\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Ejemplo de Error-Response 404",
+          "content": "{ \n   \"isValidToken\":true,\n   \"code\":\"Administrative\",\n   \"error\": \"No se pudo modificar al usuario\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "server/jwt/documentation.js",
+    "groupTitle": "USUARIOS"
+  },
+  {
+    "type": "post",
     "url": "/newuser",
     "title": "Crear usuarios",
     "name": "newUser",
@@ -889,7 +1060,10 @@ define({ "api": [
     "description": "<p>Su función es crear un nuevo usuario.</p>",
     "permission": [
       {
-        "name": "jwt"
+        "name": "jwt +"
+      },
+      {
+        "name": "Gestionar Usuarios"
       }
     ],
     "parameter": {
