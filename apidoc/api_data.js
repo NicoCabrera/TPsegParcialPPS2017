@@ -96,6 +96,56 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "/saveattendancelist",
+    "title": "Guardar Asistencia",
+    "name": "saveAttendanceList",
+    "group": "ASISTENCIA",
+    "version": "0.1.0",
+    "description": "<p>Guarda la lista de alumnos presentes y ausentes</p>",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "jwt",
+            "description": "<p>Credencial del usuario</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "attendancelist",
+            "description": "<p>Objeto que representa la lista de alumnos</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object[]",
+            "optional": false,
+            "field": "attendancelistitems",
+            "description": "<p>Cada item representa un alumno, el cual se encuentra presente o ausente segú el valor del campo 'present'</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Ejemplo de datos validos",
+          "content": "{\n  \n  \"attendancelist\":\n      {\n       \"attendancelistid\":-1,\n       \"classid\":1,\n       \"creationdate\":\"\",\n       \"ownerid\":-1,\n       \"attendancelistitems\":\n          [\n              {\n               \"attendancelistitemid\":-1,\n               \"studentid\":12,\n               \"present\":false\n              },\n              {\n               \"attendancelistitemid\":-1,\n               \"studentid\":4,\n               \"present\":true\n              }\n          ]\n      },\n   \"jwt\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdHRlbmRhbmNlLWxpc3QiLCJhdWQiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImlhdCI6MTM1Njk5OTUyNCwibmJmIjoxMzU3MDAwMDAwLCJ1aWQiOjIsInJvbCI6IlRlYWNoZXIifQ.4OS6r4Zf39OUJYlWA9KlTytNWjyU299m3cyXptnwzko\",\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "server/jwt/documentation.js",
+    "groupTitle": "ASISTENCIA"
+  },
+  {
+    "type": "post",
     "url": "/studentslistbydivisionandsubject",
     "title": "Alumnos por división y materia",
     "name": "subjectsListByDivisionId",
@@ -597,7 +647,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Ejemplo de datos validos",
-          "content": "{\n    \"jwt\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdHRlbmRhbmNlLWxpc3QiLCJhdWQiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImlhdCI6MTM1Njk5OTUyNCwibmJmIjoxMzU3MDAwMDAwLCJ1aWQiOiI0Iiwicm9sIjoiU3R1ZGVudCJ9.ittUMiwCtmpYRIUK5l1HOZ3FlKlHjrMBECAGb0u0PvI\",\n    \"surveyid\": \"62\"\n}",
+          "content": "{\n    \"jwt\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdHRlbmRhbmNlLWxpc3QiLCJhdWQiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImlhdCI6MTM1Njk5OTUyNCwibmJmIjoxMzU3MDAwMDAwLCJ1aWQiOiI0Iiwicm9sIjoiU3R1ZGVudCJ9.ittUMiwCtmpYRIUK5l1HOZ3FlKlHjrMBECAGb0u0PvI\",\n    \"surveyid\": \"75\"\n}",
           "type": "json"
         }
       ]

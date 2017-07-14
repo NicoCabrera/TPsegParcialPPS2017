@@ -1,0 +1,699 @@
+FORMAT: 1A
+
+# ATTENDANCE LIST MANAGER
+
+Gestor de asistencias
+
+#Group JWT
+
+Parte de la seguridad y validaciones se realizan utilizando un JSON Web Token
+
+## JSON Web Token [/token]
+
+### Obtener JWT [POST]
+
+Su función es entregar la credencial al usuario y dar información sobre su rol.
+
++ jwt (string) - Contiene el JWT que debería ser almacenado en el cliente.
++ rol (string) - El perfil del usuario que puede ser: Administrativo, Alumno, Profesor o Administrador.
+
++ Request  (application/json)
+
+    + Body
+    
+            {
+                "email":"nicolascabrera@yahoo.com.ar",
+                "password":"123456"
+            }
+
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdHRlbmRhbmNlLWxpc3QiLCJhdWQiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImlhdCI6MTM1Njk5OTUyNCwibmJmIjoxMzU3MDAwMDAwLCJ1aWQiOiI0Iiwicm9sIjoiU3R1ZGVudCJ9.ittUMiwCtmpYRIUK5l1HOZ3FlKlHjrMBECAGb0u0PvI",
+                "rol": "Student"
+            }
+
+        
+#Group ACCIONES
+
+Las acciones son permisos definidos en la base de datos según el tipo de usuario.
+
+## Acciones y perfil del usuario [/permissions]
+
+### Obtener las acciones y perfil del usuario [POST]
+
+Su función es entregar un listado de acciones que le están permitidas al usuario dentro de la aplicación, según su rol.
+
++ isValidToken (boolean) - Su valor determina si el jwt es válido o está corrupto.
++ code (string) - El rol del usuario que puede ser: Administrativo, Alumno, Profesor o Administrador.
++ permissions (string[]) - La lista de acciones que puede realizar el usuario dentro de la aplicación.
++ profile (object) - Tipo de usuario, nombre de usuario, e-mail.
+
++ Request  (application/json)
+
+    + Body
+    
+            {
+                "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdHRlbmRhbmNlLWxpc3QiLCJhdWQiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImlhdCI6MTM1Njk5OTUyNCwibmJmIjoxMzU3MDAwMDAwLCJ1aWQiOiI0Iiwicm9sIjoiU3R1ZGVudCJ9.ittUMiwCtmpYRIUK5l1HOZ3FlKlHjrMBECAGb0u0PvI"
+            }
+
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "isValidToken": true,
+                "code": "Student",
+                "permissions": [
+                    "Ver encuestas",
+                    "Ver faltas y asistencias"
+                ],
+                "profile": {
+                    "code": "Student",
+                    "username": "NicoCabrera",
+                    "email": "nicolascabrera@yahoo.com.ar"
+                }
+            }
+
+#Group ENCUESTAS
+
+Las encuestas pueden ser configuradas de varias formas. Pueden tener opciones como respuesta y tener una fecha de finalización.
+
+## Nueva encuesta [/newsurvey]
+
+### Crear una encuesta [POST]
+
+Su función es crear una nueva encuesta.
+
++ isValidToken (boolean) - Su valor determina si el jwt es válido o está corrupto.
++ code (string) - El rol del usuario que acaba de crear la encuesta.
+
++ Request  (application/json)
+
+    + Body
+    
+            {
+                "survey": {
+                    "title": "Titulo de la encuesta",
+                    "surveyId": 0,
+                    "creationDate": "",
+                    "endDate": "2017-07-28",
+                    "question": {
+                        "questionId": 0,
+                        "text": "¿Pregunta de la encuesta?",
+                        "surveyId": 0,
+                        "options": [
+                            {
+                                "optionId": 0,
+                                "text": "A",
+                                "isRight": true,
+                                "questionId": 0
+                            },
+                            {
+                                "optionId": 0,
+                                "text": "B",
+                                "isRight": false,
+                                "questionId": 0
+                            }
+                        ]
+                    },
+                    "ownerid": 0,
+                    "wasEliminated": false,
+                    "surveyTypeId": 2
+                },
+                "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdHRlbmRhbmNlLWxpc3QiLCJhdWQiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImlhdCI6MTM1Njk5OTUyNCwibmJmIjoxMzU3MDAwMDAwLCJ1aWQiOjIsInJvbCI6IlRlYWNoZXIifQ.4OS6r4Zf39OUJYlWA9KlTytNWjyU299m3cyXptnwzko"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "isValidToken": true,
+                "code": "Student"
+            }
+
+## Borrar encuesta [/eliminatesurvey]
+
+### Eliminar una encuesta [POST]
+
+Su función es eliminar una encuesta.
+
++ isValidToken (boolean) - Su valor determina si el jwt es válido o está corrupto.
++ code (string) - El rol del usuario que acaba de eliminar la encuesta.
+
++ Request  (application/json)
+
+    + Body
+    
+            {
+                "surveyid": "63",
+                "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdHRlbmRhbmNlLWxpc3QiLCJhdWQiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImlhdCI6MTM1Njk5OTUyNCwibmJmIjoxMzU3MDAwMDAwLCJ1aWQiOjIsInJvbCI6IlRlYWNoZXIifQ.4OS6r4Zf39OUJYlWA9KlTytNWjyU299m3cyXptnwzko"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "isValidToken": true,
+                "code": "Student"
+            }
+
+## Modificar encuesta [/modifysurvey]
+
+### Actualizar una encuesta [POST]
+
+Su función es modificar una nueva encuesta existente.
+
++ isValidToken (boolean) - Su valor determina si el jwt es válido o está corrupto.
++ code (string) - El rol del usuario que acaba de modificar la encuesta.
+
++ Request  (application/json)
+
+    + Body
+    
+            {
+                "survey": {
+                    "title": "Titulo de la encuesta",
+                    "surveyId": 0,
+                    "creationDate": "",
+                    "endDate": "2017-07-28",
+                    "question": {
+                        "questionId": 0,
+                        "text": "¿Pregunta de la encuesta?",
+                        "surveyId": 0,
+                        "options": [
+                            {
+                                "optionId": 0,
+                                "text": "A",
+                                "isRight": true,
+                                "questionId": 0
+                            },
+                            {
+                                "optionId": 0,
+                                "text": "B",
+                                "isRight": false,
+                                "questionId": 0
+                            }
+                        ]
+                    },
+                    "ownerid": 0,
+                    "wasEliminated": false,
+                    "surveyTypeId": 2
+                },
+                "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdHRlbmRhbmNlLWxpc3QiLCJhdWQiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImlhdCI6MTM1Njk5OTUyNCwibmJmIjoxMzU3MDAwMDAwLCJ1aWQiOjIsInJvbCI6IlRlYWNoZXIifQ.4OS6r4Zf39OUJYlWA9KlTytNWjyU299m3cyXptnwzko"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "isValidToken": true,
+                "code": "Student"
+            }
+
+## Registrar una respuesta [/saveanswer]
+
+### Guardar una respuesta [POST]
+
+Su función es guardar una respuesta.
+
++ isValidToken (boolean) - Su valor determina si el jwt es válido o está corrupto.
++ answer (object) - Representa la respuesta que se quiere guardar.
+
++ Request  (application/json)
+
+    + Body
+    
+            {
+                "answer": {
+                    "answerId": -1,
+                    "text": "",
+                    "userId": -1,
+                    "optionIds": [
+                        65,
+                        66,
+                        67
+                    ],
+                    "questionId": 67,
+                    "surveyId": 65,
+                    "chooseNothing": false
+                },
+                "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdHRlbmRhbmNlLWxpc3QiLCJhdWQiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImlhdCI6MTM1Njk5OTUyNCwibmJmIjoxMzU3MDAwMDAwLCJ1aWQiOjQsInJvbCI6IlN0dWRlbnQifQ.8-AOeHe8lKHUkeyzT4_pEgvq7JM-V76I3r9UFkYn8dg"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "isValidToken": true,
+                "code": "Student"
+            }
+
+## Listado de encuestas [/getsurveyslist]
+
+### Traer el listado de encuestas [POST]
+
+Retorna la lista de encuestas disponibles
+
++ Request  (application/json)
+
+    + Body
+    
+            {
+                "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdHRlbmRhbmNlLWxpc3QiLCJhdWQiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImlhdCI6MTM1Njk5OTUyNCwibmJmIjoxMzU3MDAwMDAwLCJ1aWQiOjQsInJvbCI6IlN0dWRlbnQifQ.8-AOeHe8lKHUkeyzT4_pEgvq7JM-V76I3r9UFkYn8dg"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+                {
+                    "surveyid": "65",
+                    "title": "Encuesta sin preguntas",
+                    "username": "RFonte",
+                    "userid": "2",
+                    "creationdate": "2017-06-24",
+                    "enddate": "0000-00-00",
+                    "text": "¿Soy una pregunta?",
+                    "surveytypeid": "1",
+                    "questionid": "67"
+                },
+                {
+                    "surveyid": "64",
+                    "title": "Encuesta de opiniono",
+                    "username": "RFonte",
+                    "userid": "2",
+                    "creationdate": "2017-06-24",
+                    "enddate": "0000-00-00",
+                    "text": "¿Quien es mejor?",
+                    "surveytypeid": "3",
+                    "questionid": "66"
+                },
+                {
+                    "surveyid": "73",
+                    "title": "Mi encuesta",
+                    "username": "RFonte",
+                    "userid": "2",
+                    "creationdate": "2017-06-24",
+                    "enddate": "0000-00-00",
+                    "text": "Quien soy",
+                    "surveytypeid": "1",
+                    "questionid": "75"
+                }
+            ]
+
+## Traer encuesta [/getsurveybyid]
+
+### Traer una encuesta [POST]
+
+Trae una encuesta por su ID. Dependiendo de la encuesta, puede traer también las opciones que incluye la pregunta como posibles respuestas.
+
++ survey (object) - Datos de la encuesta.
++ options (object[]) - Array de respuestas posibles.
+
++ Request  (application/json)
+
+    + Body
+    
+            {
+                "surveyid": "74"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "survey": {
+                    "surveyid": "64",
+                    "title": "Encuesta de opiniono",
+                    "questionid": "66",
+                    "text": "¿Quien es mejor?",
+                    "enddate": "0000-00-00",
+                    "surveytypeid": "3"
+                },
+                "options": [
+                    {
+                        "optionid": "65",
+                        "text": "Yo",
+                        "isright": "0",
+                        "questionid": "66"
+                    },
+                    {
+                        "optionid": "66",
+                        "text": "Vos",
+                        "isright": "0",
+                        "questionid": "66"
+                    }
+                ]
+            }
+#Group ESTADISTICAS
+
+Se puede utilizar otros plugins como CHART o HICHART para consumir de ésta API y mostrar gráficos en base a los datos que se obtienen de las siguientes uris.
+
+## Encuestas Tipo 1 [/statisticsforsurveytypefreeanswer]
+
+### Traer encuestas Tipo 1 [POST]
+
+Obtiene las respuestas de los usuarios según el ID de la encuesta.
+Se utiliza sobre encuestas con preguntas que fueron respondidas por medio de un textarea.
+
++ total (number) - Cantidad de personas que respondieron la encuesta.
++ users (object[]) - Datos de los usuarios que respondieron.
+
++ Request  (application/json)
+
+    + Body
+    
+            {
+                "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdHRlbmRhbmNlLWxpc3QiLCJhdWQiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImlhdCI6MTM1Njk5OTUyNCwibmJmIjoxMzU3MDAwMDAwLCJ1aWQiOiI0Iiwicm9sIjoiU3R1ZGVudCJ9.ittUMiwCtmpYRIUK5l1HOZ3FlKlHjrMBECAGb0u0PvI",
+                "surveyid": "75"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "total": "2",
+                "users": [
+                    {
+                        "answerid": "50",
+                        "text": "No me interesa",
+                        "userid": "12",
+                        "questionid": "77",
+                        "surveyid": "75",
+                        "firstname": "Federico",
+                        "lastname": "Nuñez"
+                    },
+                    {
+                        "answerid": "51",
+                        "text": "Poli qué??",
+                        "userid": "4",
+                        "questionid": "77",
+                        "surveyid": "75",
+                        "firstname": "Nicolás",
+                        "lastname": "Cabrera"
+                    }
+                ]
+            }
+## Encuestas Tipo 2 [/statisticsforsurveytyperadiobuttons1correct2graphics]
+
+### Traer encuestas Tipo 2 [POST]
+
+Obtiene las respuestas de los usuarios según el ID de la encuesta.
+Se utiliza sobre encuestas con preguntas que fueron respondidas con opciones predefinidas.
+
++ total (number) - Cantidad de personas que respondieron la encuesta.
++ users (object[]) - Datos de los usuarios que respondieron.
++ options (object[]) - Las opciones que se le brindaron a los usuarios como respuesta.
++ perOption (object[]) - Las veces que se eligió una opción.
+
+
++ Request  (application/json)
+
+    + Body
+    
+            {
+                "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdHRlbmRhbmNlLWxpc3QiLCJhdWQiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImlhdCI6MTM1Njk5OTUyNCwibmJmIjoxMzU3MDAwMDAwLCJ1aWQiOiI0Iiwicm9sIjoiU3R1ZGVudCJ9.ittUMiwCtmpYRIUK5l1HOZ3FlKlHjrMBECAGb0u0PvI",
+                "questionid":"76",
+                "surveyid": "74"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "total": "2",
+                "users": [
+                    {
+                        "answerid": "48",
+                        "text": "",
+                        "userid": "4",
+                        "questionid": "76",
+                        "surveyid": "74",
+                        "firstname": "Nicolás",
+                        "lastname": "Cabrera"
+                    },
+                    {
+                        "answerid": "49",
+                        "text": "",
+                        "userid": "12",
+                        "questionid": "76",
+                        "surveyid": "74",
+                        "firstname": "Federico",
+                        "lastname": "Nuñez"
+                    }
+                ],
+                "options": [
+                    {
+                        "optionid": "71",
+                        "text": "Auto",
+                        "isright": "0"
+                    },
+                    {
+                        "optionid": "72",
+                        "text": "Negro",
+                        "isright": "0"
+                    },
+                    {
+                        "optionid": "73",
+                        "text": "Azul",
+                        "isright": "0"
+                    },
+                    {
+                        "optionid": "74",
+                        "text": "Blanco",
+                        "isright": "0"
+                    },
+                    {
+                        "optionid": "75",
+                        "text": "Pez",
+                        "isright": "0"
+                    },
+                    {
+                        "optionid": "76",
+                        "text": "Rojo",
+                        "isright": "0"
+                    }
+                ],
+                "perOption": [
+                    {
+                        "optionid": "72",
+                        "total": "1",
+                        "text": "Negro"
+                    },
+                    {
+                        "optionid": "73",
+                        "total": "2",
+                        "text": "Azul"
+                    },
+                    {
+                        "optionid": "74",
+                        "total": "1",
+                        "text": "Blanco"
+                    },
+                    {
+                        "optionid": "76",
+                        "total": "2",
+                        "text": "Rojo"
+                    }
+                ]
+            }
+## Faltas y asistencias [/getAssist]
+
+### Traer faltas y asistencias de un alumno [POST]
+
+Obtiene las faltas y asistencias de un alumno, según una asignatura seleccionada.
+Los datos del usuario se obtienen directo desde el jwt.
+
++ present (number) - Cantidad de veces presente.
++ absent (number) - Cantidad de veces ausente.
+
++ Request  (application/json)
+
+    + Body
+    
+            {
+                "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdHRlbmRhbmNlLWxpc3QiLCJhdWQiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImlhdCI6MTM1Njk5OTUyNCwibmJmIjoxMzU3MDAwMDAwLCJ1aWQiOiI0Iiwicm9sIjoiU3R1ZGVudCJ9.ittUMiwCtmpYRIUK5l1HOZ3FlKlHjrMBECAGb0u0PvI",
+                "classid": "1"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "present": "5",
+                "absent": "1"
+            }
+
+#Group USUARIOS
+
+La estructura de un objeto 'Usuario' es compleja, al igual que la 'Encuesta', y se deberán validar todos los campos para evitar el valor de retorno con código 404.
+
+## Nuevo usuario [/newuser]
+
+### Crear un usuario [POST]
+
+Su función es crear un nuevo usuario.
+
++ isValidToken (boolean) - Su valor determina si el jwt es válido o está corrupto.
++ code (string) - El rol del usuario que acaba de crear uno nuevo.
+
++ Request  (application/json)
+
+    + Body
+    
+            {
+                "user": {
+                    "username": "Nombre de usuario",
+                    "email": "email@email.com",
+                    "password": "123456",
+                    "rol": "Student",
+                    "firstname": "Nombre",
+                    "lastname": "Apellido",
+                    "filenumber": "555555",
+                    "street": "Calle",
+                    "number": "121",
+                    "city": "Localidad",
+                    "floor": "3",
+                    "department": "A",
+                    "clarification": "Aclaración"
+                },
+                "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdHRlbmRhbmNlLWxpc3QiLCJhdWQiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImlhdCI6MTM1Njk5OTUyNCwibmJmIjoxMzU3MDAwMDAwLCJ1aWQiOjMsInJvbCI6IkFkbWluaXN0cmF0aXZlIn0.KYofapbmBFAFzpI07ro6vRCbVRH1ikJt_uYlo09-XTc"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "isValidToken": true,
+                "code": "Teacher"
+            }
+
+## Borrar usuario [/deleteUser]
+
+### Eliminar un usuario [POST]
+
+Su función es eliminar un usuario
+
++ isValidToken (boolean) - Su valor determina si el jwt es válido o está corrupto.
++ code (string) - El rol del usuario que acaba de realizar la acción de eliminar.
+
++ Request  (application/json)
+
+    + Body
+    
+            {
+                "userid":"120",
+                "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdHRlbmRhbmNlLWxpc3QiLCJhdWQiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImlhdCI6MTM1Njk5OTUyNCwibmJmIjoxMzU3MDAwMDAwLCJ1aWQiOjMsInJvbCI6IkFkbWluaXN0cmF0aXZlIn0.KYofapbmBFAFzpI07ro6vRCbVRH1ikJt_uYlo09-XTc"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "isValidToken": true,
+                "code": "Teacher"
+            }
+
+## Actualizar usuario [/modifyUser]
+
+### Modificar un usuario [POST]
+
+Su función es modificar un usuario.
+
++ isValidToken (boolean) - Su valor determina si el jwt es válido o está corrupto.
++ code (string) - El rol del usuario que acaba de modificar a otro.
+
++ Request  (application/json)
+
+    + Body
+    
+            {
+                "user": {
+                    "username": "Nombre de usuario",
+                    "email": "email@email.com",
+                    "password": "123456",
+                    "rol": "Student",
+                    "firstname": "Nombre",
+                    "lastname": "Apellido",
+                    "filenumber": "555555",
+                    "street": "Calle",
+                    "number": "121",
+                    "city": "Localidad",
+                    "floor": "3",
+                    "department": "A",
+                    "clarification": "Aclaración"
+                },
+                "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdHRlbmRhbmNlLWxpc3QiLCJhdWQiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImlhdCI6MTM1Njk5OTUyNCwibmJmIjoxMzU3MDAwMDAwLCJ1aWQiOjMsInJvbCI6IkFkbWluaXN0cmF0aXZlIn0.KYofapbmBFAFzpI07ro6vRCbVRH1ikJt_uYlo09-XTc"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "isValidToken": true,
+                "code": "Teacher"
+            }
+            
+
+#Group ASISTENCIAS
+
+Para acceder a la lista de alumnos, es necesario conocer la division y materia.
+
+## Obtener lista de alumnos [/studentslistbydivisionandsubject]
+
+### Alumnos por división y materia [POST]
+
+Obtiene los alumnos por división y materia.
+
++ isValidToken (boolean) - Su valor determina si el jwt es válido o está corrupto.
++ code (string) - El rol del usuario que acaba de modificar a otro.
+
++ Request  (application/json)
+
+    + Body
+    
+            {
+                "divisionid": "1",
+                "subjectid": "4",
+                "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdHRlbmRhbmNlLWxpc3QiLCJhdWQiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImlhdCI6MTM1Njk5OTUyNCwibmJmIjoxMzU3MDAwMDAwLCJ1aWQiOjMsInJvbCI6IkFkbWluaXN0cmF0aXZlIn0.KYofapbmBFAFzpI07ro6vRCbVRH1ikJt_uYlo09-XTc"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "students": [
+                    {
+                        "userid": "12",
+                        "firstname": "Federico",
+                        "lastname": "Nuñez"
+                    },
+                    {
+                        "userid": "4",
+                        "firstname": "Nicolás",
+                        "lastname": "Cabrera"
+                    }
+                ],
+                "classid": "1"
+            }
+                        

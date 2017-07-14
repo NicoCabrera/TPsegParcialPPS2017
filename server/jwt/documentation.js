@@ -225,7 +225,7 @@
 * @apiParamExample {json} Ejemplo de datos validos
 * {
 *     "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdHRlbmRhbmNlLWxpc3QiLCJhdWQiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImlhdCI6MTM1Njk5OTUyNCwibmJmIjoxMzU3MDAwMDAwLCJ1aWQiOiI0Iiwicm9sIjoiU3R1ZGVudCJ9.ittUMiwCtmpYRIUK5l1HOZ3FlKlHjrMBECAGb0u0PvI",
-*     "surveyid": "62"
+*     "surveyid": "75"
 * }
 * @apiSampleRequest http://localhost:80/jwt/statisticsforsurveytypefreeanswer
 */
@@ -404,6 +404,43 @@
 *     "subjectid":"4",
 *     "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdHRlbmRhbmNlLWxpc3QiLCJhdWQiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImlhdCI6MTM1Njk5OTUyNCwibmJmIjoxMzU3MDAwMDAwLCJ1aWQiOjMsInJvbCI6IkFkbWluaXN0cmF0aXZlIn0.KYofapbmBFAFzpI07ro6vRCbVRH1ikJt_uYlo09-XTc"
 * }
+*/
+
+/**
+* @api {post} /saveattendancelist Guardar Asistencia
+* @apiName saveAttendanceList
+* @apiGroup ASISTENCIA
+* @apiVersion 0.1.0
+* @apiDescription Guarda la lista de alumnos presentes y ausentes
+* @apiPermission jwt
+* @apiParam {String} jwt Credencial del usuario
+* @apiParam {Object} attendancelist Objeto que representa la lista de alumnos
+* @apiParam {Object[]} attendancelistitems Cada item representa un alumno, el cual se encuentra presente o ausente segú el valor del campo 'present' 
+* @apiParamExample {json} Ejemplo de datos validos
+*  {
+*    
+*    "attendancelist":
+*        {
+*         "attendancelistid":-1,
+*         "classid":1,
+*         "creationdate":"",
+*         "ownerid":-1,
+*         "attendancelistitems":
+*            [
+*                {
+*                 "attendancelistitemid":-1,
+*                 "studentid":12,
+*                 "present":false
+*                },
+*                {
+*                 "attendancelistitemid":-1,
+*                 "studentid":4,
+*                 "present":true
+*                }
+*            ]
+*        },
+*     "jwt":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdHRlbmRhbmNlLWxpc3QiLCJhdWQiOiJodHRwOlwvXC9leGFtcGxlLmNvbSIsImlhdCI6MTM1Njk5OTUyNCwibmJmIjoxMzU3MDAwMDAwLCJ1aWQiOjIsInJvbCI6IlRlYWNoZXIifQ.4OS6r4Zf39OUJYlWA9KlTytNWjyU299m3cyXptnwzko",
+*   }
 */
 
 /**
